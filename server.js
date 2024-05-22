@@ -22,12 +22,43 @@ const options = [
 ]
 // creating an init() function that loads the program on start up 
 function init() {
+
+
     inquirer.prompt(options)
     .then(function(data){
-        console.log(data);
-    })
+        console.log(data.choice);
+        switch(data.choice) {
+            case 'View All Employees':
+                pool.query('SELECT * FROM employees', function (err, {rows}) {
+                    console.log(rows);
+                });
+                break;
+            case 'View All Roles':
+                pool.query('SELECT * FROM employees', function (err, {rows}) {
+                    console.log(rows);
+                });
+                break;
+            case 'View All Departments':
+                pool.query('SELECT * FROM employees', function (err, {rows}) {
+                    console.log(rows);
+                });
+                break;
+        }
+    });
 }
+
 // calling the initial function 
 init();
 
+const pool = new Pool ({
+    user: 'postgres',
+    // ENTER POSTGRES PASSWORD
+    password: '',
+    host: 'localhost',
+    database: 'employess_db'
+},
+console.log('\nConnected to the employess_db database!')
+)
+
+pool.connect();
 //npm start to run the program
